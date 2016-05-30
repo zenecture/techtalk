@@ -30,6 +30,7 @@ object WithTuple {
 
   val message = (H, E, L, L, O, __, W, O, R, L, D)
   val message2 = (Σ(H), Σ(E), Σ(L), Σ(L), Σ(O), Σ(__), Σ(W), Σ(O), Σ(R), Σ(L), Σ(D))
+  val message3 = H :: E :: L :: L :: O :: __ :: L :: I :: S :: T :: Nil // = List[Any]
   val prepared = message.productIterator.map(char => Σ(char))
   val extracted = prepared.map(_.send)
 
