@@ -31,13 +31,22 @@ object WithTuple {
   val message = (H, E, L, L, O, __, W, O, R, L, D)
   val message2 = (Σ(H), Σ(E), Σ(L), Σ(L), Σ(O), Σ(__), Σ(W), Σ(O), Σ(R), Σ(L), Σ(D))
   val message3 = H :: E :: L :: L :: O :: __ :: L :: I :: S :: T :: Nil // = List[Any]
-  val prepared = message.productIterator.map(char => Σ(char))
-  val extracted = prepared.map(_.send)
+  val prepared: Iterator[Σ[Any]] = message.productIterator.map(char => Σ(char))
+  val extracted: Iterator[Option[Any]] = prepared.map(_.send)
 
   val boiled1 = boilerplate1(message2)
 
   val boiled2 = boilerplate2(Σ(H), Σ(E), Σ(L), Σ(L), Σ(O), Σ(__), Σ(W), Σ(O), Σ(R), Σ(L), Σ(D))
   val cooled = boiled2.productIterator.map({ case o: Option[_] => o }).flatten
+
+  val lifted = lift11(message)
+
+  def lift11[_1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11]
+  (m: (_1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11)) = {
+    def l[A](a: A) = Σ(a)
+    (l(m._1), l(m._2), l(m._3), l(m._4), l(m._5), l(m._6), l(m._7),
+      l(m._8), l(m._9), l(m._10), l(m._11))
+  }
 
   def boilerplate1(m: (Σ[H], Σ[E], Σ[L], Σ[L], Σ[O], Σ[__], Σ[W], Σ[O], Σ[R], Σ[L], Σ[D])) =
     (m._1.send, m._2.send, m._3.send, m._4.send, m._5.send, m._6.send, m._7.send,
