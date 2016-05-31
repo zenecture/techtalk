@@ -68,8 +68,8 @@ object Alphabet {
 
 }
 
-case class Σ[Item](item: Item) {
-  def send: Option[Item] = Random.nextInt(2) match {
+case class Σ[T](item: T) {
+  def send: Option[T] = Random.nextInt(2) match {
     case x if x == 0 => None
     case _ => Some(item)
   }

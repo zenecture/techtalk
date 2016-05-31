@@ -1,5 +1,7 @@
 package hlist
 
+import hlist.HList.HNil
+
 /**
   * @author bogdanski
   * @since 30.05.16
@@ -9,6 +11,8 @@ object Run extends App {
   import Liftable._
 
   val message = lift(H :: E :: L :: L :: O :: __ :: W :: O :: R :: L :: D :: HNil)
+
+  val orl: O :: R :: L :: HNil = O :: R :: L :: HNil
 
   def result = {
     import Groundable._
