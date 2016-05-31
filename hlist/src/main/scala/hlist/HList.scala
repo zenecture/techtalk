@@ -12,11 +12,11 @@ object HList {
 trait HList
 
 case class ::[H, +T <: HList](head: H, tail: T) extends HList {
-  def ::[I](item: I): I :: ::.this.type = hlist.::(item, this)
+  def ::[I](item: I): I :: this.type = hlist.::(item, this)
 }
 
 case object HNil extends HList {
-  def ::[I](item: I): I :: HNil.this.type = hlist.::(item, HNil)
+  def ::[I](item: I): I :: this.type = hlist.::(item, HNil)
 }
 
 trait Functor1[L <: HList, F[_]] {

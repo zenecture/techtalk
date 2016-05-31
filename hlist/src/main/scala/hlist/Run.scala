@@ -22,6 +22,7 @@ object Run extends App {
   println(result.head)
   println(result.tail.head)
   println(result.tail.tail.head)
+
   // ...
 }
 
