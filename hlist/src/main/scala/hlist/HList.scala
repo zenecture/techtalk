@@ -56,13 +56,13 @@ trait Lift[F[_]] {
     }
 }
 
-trait Ground[F[_], G[_]] {
+trait Trans[F[_], G[_]] {
   import HList._
   import HFunctor._
 
   implicit def r[A]: F[A] => G[A]
 
-  def ground[L <: HList, R <: HList](l: L)(implicit f: HFunctor2[L, F, G]): f.Res = {
+  def trans[L <: HList, R <: HList](l: L)(implicit f: HFunctor2[L, F, G]): f.Res = {
     def trav(l: HList): HList = l match {
       case h0 :: tl0 => hlist.::(r(h0.asInstanceOf[F[Any]]), trav(tl0))
       case HNil => HNil
@@ -70,11 +70,11 @@ trait Ground[F[_], G[_]] {
     trav(l).asInstanceOf[f.Res]
   }
 
-  implicit def groundNil: Aux2[HNil, HNil, F, G] = new HFunctor2[HNil, F, G] {
+  implicit def transHNil: Aux2[HNil, HNil, F, G] = new HFunctor2[HNil, F, G] {
     type Res = HNil
   }
 
-  implicit def groundList[H, L <: HList, R <: HList]
+  implicit def transHList[H, L <: HList, R <: HList]
     (implicit e: Aux2[L, R, F, G], f: F[H] => G[H]): Aux2[F[H] :: L, G[H] :: R, F, G] = new HFunctor2[F[H] :: L, F, G] {
       type Res = G[H] :: R
     }

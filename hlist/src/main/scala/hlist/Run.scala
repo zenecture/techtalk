@@ -17,7 +17,7 @@ object Run extends App {
   val b: Σ[Σ[A]] :: Σ[Σ[B]] :: HNil = lift(a)
 
   val message = lift(H :: E :: L :: L :: O :: __ :: W :: O :: R :: L :: D :: HNil)
-  def result = { import Groundable._; ground(message) }
+  def result = { import Transformable._; trans(message) }
 
   println(result.head)
   println(result.tail.head)
