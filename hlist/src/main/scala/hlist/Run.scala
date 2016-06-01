@@ -10,8 +10,8 @@ object Run extends App {
   import Alphabet._
   import Liftable._
 
-  val a: Σ[Int] :: Σ[Int] :: HNil = NaiveHFunctor.map(1 :: 2 :: HNil)(l => Σ(2) :: Σ(4) :: HNil)
-  val b: Σ[Σ[Int]] :: Σ[Σ[Int]] :: HNil = lift(a)
+  val a: Σ[A] :: Σ[B] :: HNil = NaiveHFunctor.map(A :: B :: HNil)(l => Σ(A) :: Σ(B) :: HNil)
+  val b: Σ[Σ[A]] :: Σ[Σ[B]] :: HNil = lift(a)
 
   val message = lift(H :: E :: L :: L :: O :: __ :: W :: O :: R :: L :: D :: HNil)
   def result = { import Groundable._; ground(message) }
