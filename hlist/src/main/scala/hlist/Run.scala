@@ -10,7 +10,10 @@ object Run extends App {
   import Alphabet._
   import Liftable._
 
+
   val a: Σ[A] :: Σ[B] :: HNil = NaiveHFunctor.map(A :: B :: HNil)(l => Σ(A) :: Σ(B) :: HNil)
+  // doesn't compile:
+  //val aa = NaiveHFunctor.map(C :: D :: HNil)(l => Σ(C) :: Σ(D) :: HNil)
   val b: Σ[Σ[A]] :: Σ[Σ[B]] :: HNil = lift(a)
 
   val message = lift(H :: E :: L :: L :: O :: __ :: W :: O :: R :: L :: D :: HNil)
