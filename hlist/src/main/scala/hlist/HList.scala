@@ -10,7 +10,7 @@ object HList {
 }
 
 trait HList {
-  def ::[I](item: I): I :: this.type = hlist.::(item, this)
+  def ::[H](head: H): H :: this.type = hlist.::(head, tail = this)
 }
 case class ::[H, +T <: HList](head: H, tail: T) extends HList
 
