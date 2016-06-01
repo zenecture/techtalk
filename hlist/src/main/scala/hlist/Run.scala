@@ -16,8 +16,8 @@ object Run extends App {
   //val aa = NaiveHFunctor.map(C :: D :: HNil)(l => Σ(C) :: Σ(D) :: HNil)
   val b: Σ[Σ[A]] :: Σ[Σ[B]] :: HNil = lift(a)
 
-  val message = lift(H :: E :: L :: L :: O :: __ :: W :: O :: R :: L :: D :: HNil)
-  def result = { import Transformable._; trans(message) }
+  val message: Σ[A] :: Σ[B] :: Σ[C] :: HNil = lift(A :: B :: C :: HNil)
+  def result: Option[A] :: Option[B] :: Option[C] :: HNil = { import Transformable._; trans(message) }
 
   println(result.head)
   println(result.tail.head)

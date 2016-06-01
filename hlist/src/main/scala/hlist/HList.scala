@@ -9,15 +9,12 @@ object HList {
   type HNil = HNil.type
 }
 
-trait HList
-
-case class ::[H, +T <: HList](head: H, tail: T) extends HList {
+trait HList {
   def ::[I](item: I): I :: this.type = hlist.::(item, this)
 }
+case class ::[H, +T <: HList](head: H, tail: T) extends HList
 
-case object HNil extends HList {
-  def ::[I](item: I): I :: this.type = hlist.::(item, HNil)
-}
+case object HNil extends HList
 
 trait HFunctor1[L <: HList, F[_]] {
   type Res <: HList
