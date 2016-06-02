@@ -22,7 +22,7 @@ object Run extends App {
   val g: Σ[Σ[A]] :: Σ[Σ[B]] :: HNil = lift(f)
 
   val message = lift(A :: B :: C :: HNil)
-  def result: Option[A] :: Option[B] :: Option[C] :: HNil = { import Transformable._; trans(message) }
+  val result: Option[A] :: Option[B] :: Option[C] :: HNil = { import Transformable._; trans(message) }
 
   println(result.head)
   println(result.tail.head)
