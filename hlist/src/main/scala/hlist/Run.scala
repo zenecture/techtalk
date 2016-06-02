@@ -10,13 +10,18 @@ object Run extends App {
   import Alphabet._
   import Liftable._
 
+  val a = A :: B :: C :: HNil
+  val b = lift(a)
+  val c: Σ[A] :: Σ[B] :: Σ[C] :: HNil = b
+  val d = { import Transformable._ ; trans(b) }
+  val e: Option[A] :: Option[B] :: Option[C] :: HNil = d
 
-  val a: Σ[A] :: Σ[B] :: HNil = NaiveHFunctor.map(A :: B :: HNil)(l => Σ(A) :: Σ(B) :: HNil)
+  val f: Σ[A] :: Σ[B] :: HNil = NaiveHFunctor.map(A :: B :: HNil)(l => Σ(A) :: Σ(B) :: HNil)
   // doesn't compile:
   //val aa = NaiveHFunctor.map(C :: D :: HNil)(l => Σ(C) :: Σ(D) :: HNil)
-  val b: Σ[Σ[A]] :: Σ[Σ[B]] :: HNil = lift(a)
+  val g: Σ[Σ[A]] :: Σ[Σ[B]] :: HNil = lift(f)
 
-  val message: Σ[A] :: Σ[B] :: Σ[C] :: HNil = lift(A :: B :: C :: HNil)
+  val message = lift(A :: B :: C :: HNil)
   def result: Option[A] :: Option[B] :: Option[C] :: HNil = { import Transformable._; trans(message) }
 
   println(result.head)
