@@ -19,18 +19,12 @@ object Run extends App {
 }
 
 object Factorial {
-  def apply(n: Int): Int = n match {
-    case _ if n > 1 => n * apply(n - 1)
-    case _ => 1
-  }
+  def apply(n: Int): Int = if (n > 1) n * apply(n - 1) else 1
 }
 
 object FactorialTailrec {
   def apply(n: Int): Int = {
-    @tailrec def fac(i: Int, k: Int): Int = i match {
-      case _ if i > 1 => fac(i - 1, k * (i - 1))
-      case _ => k
-    }
+    @tailrec def fac(i: Int, k: Int): Int = if (i > 1) fac(i - 1, k * (i - 1)) else k
     fac(n, n)
   }
 }
