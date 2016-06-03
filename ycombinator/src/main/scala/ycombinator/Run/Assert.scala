@@ -13,8 +13,8 @@ object Assert {
     * Checks if all values of [[HList]] `l` are equal.
     */
   def apply[L <: HList](l: L): Boolean = l match {
-    case hd0 :: (hd1 :: tl) => if (hd0.equals(hd1)) apply(tl) else throw new AssertionError(s"$hd0 != $hd1")
-    case HNil => true
+    case hd0 :: (hd1 :: tl) => if (hd0.equals(hd1)) apply(hd1 :: tl) else throw new AssertionError(s"$hd0 != $hd1")
+    case hd :: HNil => true
   }
 
 }

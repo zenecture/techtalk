@@ -14,8 +14,9 @@ object Run extends App {
   val b = FactorialIter(5)
   val c = FactorialTailrec(5)
   val d = YCombinator[Int, Int](a => b => if (b > 1) b * a(b - 1) else 1)(5)
+  val e = FactorialFunc.apply(5)
 
-  Assert(a :: b :: c :: d :: HNil)
+  Assert(a :: b :: c :: d :: e :: HNil)
 }
 
 object Factorial {
@@ -43,4 +44,8 @@ object FactorialIter {
 
 object YCombinator {
   def apply[A, B](f: (A => B) => (A => B)): A => B = f(apply(f))(_)
+}
+
+object FactorialFunc {
+  val apply: Int => Int = n => if (n > 1) n * apply(n - 1) else 1
 }
