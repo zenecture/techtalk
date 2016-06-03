@@ -12,5 +12,6 @@ object TechTalk extends Build {
   )
 
   lazy val hlist = Project(id = "hlist", base = file("hlist"), settings = sets)
+  lazy val ycombinator = Project(id = "ycombinator", base = file("ycombinator"), settings = sets) dependsOn hlist
 
 }

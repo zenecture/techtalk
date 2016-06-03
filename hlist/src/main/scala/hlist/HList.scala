@@ -17,19 +17,6 @@ case class ::[H, +T <: HList](head: H, tail: T) extends HList
 
 case object HNil extends HList
 
-trait HFunctor1[L <: HList, F[_]] {
-  type Res <: HList
-}
-
-trait HFunctor2[L <: HList, F[_], G[_]] {
-  type Res <: HList
-}
-
-object HFunctor {
-  type Aux1[L <: HList, R <: HList, F[_]] = HFunctor1[L, F] { type Res = R }
-  type Aux2[L <: HList, R <: HList, F[_], G[_]] = HFunctor2[L, F, G] { type Res = R }
-}
-
 trait Lift[F[_]] {
   import HList._
   import HFunctor._
