@@ -11,8 +11,8 @@ import scala.annotation.tailrec
 
 object Run extends App {
   val a = Factorial(5)
-  val b = FactorialIter(5)
-  val c = FactorialTailrec(5)
+  val b = FactorialTailrec(5)
+  val c = FactorialIter(5)
   val d = YCombinator[Int, Int](a => b => if (b > 1) b * a(b - 1) else 1)(5)
   val e = FactorialFunc.apply(5)
 
