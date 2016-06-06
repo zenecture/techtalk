@@ -32,13 +32,13 @@ object FactorialTailrec {
 
 object FactorialIter {
   def apply(n: Int): Int = {
-    var curr = n
+    var k = n
     var i = n - 1
     while (i > 1) {
-      curr = curr * i
+      k = k * i
       i = i - 1
     }
-    curr
+    k
   }
 }
 
