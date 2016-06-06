@@ -46,6 +46,14 @@ object YCombinator {
   def apply[A, B](f: (A => B) => (A => B)): A => B = f(apply(f))(_)
 }
 
+object Overflominator {
+  def apply[A, B](f: (A => B) => (A => B)): A => B = f(apply(f))
+}
+
+object ExplicitYCombinator {
+  def apply[A, B](f: (A => B) => (A => B)): A => B = a => f(apply(f))(a)
+}
+
 object FactorialFunc {
   val apply: Int => Int = n => if (n > 1) n * apply(n - 1) else 1
 }
