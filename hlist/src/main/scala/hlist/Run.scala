@@ -10,11 +10,11 @@ object Run extends App {
   import Alphabet._
   import Liftable._
 
-  val a = A :: B :: C :: HNil
+  val a = A :: 1 :: "2" :: 3.0 :: HNil
   val b = lift(a)
-  val c: Σ[A] :: Σ[B] :: Σ[C] :: HNil = b
+  val c: Σ[A] :: Σ[Int] :: Σ[String] :: Σ[Double] :: HNil  = b
   val d = { import Transformable._ ; trans(b) }
-  val e: Option[A] :: Option[B] :: Option[C] :: HNil = d
+  val e: Option[A] :: Option[Int] :: Option[String] :: Option[Double] :: HNil = d
 
   val f: Σ[A] :: Σ[B] :: HNil = NaiveHFunctor.map(A :: B :: HNil)(l => Σ(A) :: Σ(B) :: HNil)
   // doesn't compile:
