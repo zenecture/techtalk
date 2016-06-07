@@ -16,6 +16,7 @@ object Run extends App {
 }
 
 object LiftTrans {
+
   def apply = {
     import Alphabet._
     import Liftable._
@@ -40,37 +41,26 @@ object LiftTrans {
 
     // ...
   }
+
 }
 
 object Mapping {
 
   import Map._
   import Alphabet._
-  import Showable._
+  import ShowableAlphabet._
+  import Players._
+  import ShowablePlayers._
 
   def apply = {
-
-    case class King(name: String)
-    case class Queen(name: String)
-    case class Pawn(name: String)
-    case class Tower(name: String)
-
-    implicit object showKing extends Func[King, String] { val f = (k: King) => "Almighty King" }
-    implicit object showQueen extends Func[Queen, String] { val f = (q: Queen) => s"Beautiful Queen ${q.name}" }
-    implicit object showPawn extends Func[Pawn, String] { val f = (p: Pawn) => s"Strong Pawn ${p.name}" }
-    implicit object showTower extends Func[Tower, String] { val f = (t: Tower) => s"Monstrous Tower ${t.name}" }
-
     val players = King("Karl") :: Queen("Quintessa") :: Tower("Theodore") :: Pawn("Power Paul")  :: HNil
     val explicit = map(players)
     val prettyPlayers: String :: String :: String :: String :: HNil = explicit
-
     println(prettyPlayers)
 
     val helloWorld = H :: E :: L :: L :: O :: __ :: W :: O :: R :: L :: D :: HNil
     val prettyHello = map(helloWorld)
-
     println(prettyHello)
-
   }
 
 }
@@ -85,12 +75,10 @@ object LiftAlternative {
 
     val abc = A :: B :: C :: HNil
     val lifted = map(abc)
-
     val assert: Σ[A] :: Σ[B] :: Σ[C] :: HNil = lifted
-
     println(lifted)
-
   }
+
 }
 
 object WithTuple {
@@ -116,7 +104,6 @@ object WithTuple {
   }
 
   def apply = {
-
     // doesn't compile:
     // val longText = (T, H, I, S, __, I, S, __, A, __, V, E, R, Y, __, L, O, N, G, __, T, E, X, T)
 
@@ -131,7 +118,6 @@ object WithTuple {
     val cooled = boiled2.productIterator.map({ case o: Option[_] => o }).flatten
 
     val lifted = lift11(message)
-
   }
 
 }

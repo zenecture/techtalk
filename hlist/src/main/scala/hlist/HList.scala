@@ -18,6 +18,7 @@ case class ::[H, +T <: HList](head: H, tail: T) extends HList
 case object HNil extends HList
 
 trait Lift[F[_]] {
+
   import HList._
   import HFunctor._
 
@@ -42,10 +43,12 @@ trait Lift[F[_]] {
     (implicit f: Aux1[L, R, F], g: H => F[H]): Aux1[H :: L, F[H] :: R, F] = new HFunctor1[H :: L, F] {
       type Res = F[H] :: R
     }
+
 }
 
 
 trait Trans[F[_], G[_]] {
+
   import HList._
   import HFunctor._
 
@@ -70,9 +73,11 @@ trait Trans[F[_], G[_]] {
     (implicit f: Aux2[L, R, F, G], g: F[H] => G[H]): Aux2[F[H] :: L, G[H] :: R, F, G] = new HFunctor2[F[H] :: L, F, G] {
       type Res = G[H] :: R
     }
+
 }
 
 object Map {
+
   import HList._
   import HMapper._
 

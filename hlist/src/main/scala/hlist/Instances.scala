@@ -13,7 +13,7 @@ object Transformable extends Trans[Σ, Option] {
   implicit def r[A]: (Σ[A]) => Option[A] = a => a.send
 }
 
-object Showable {
+object ShowableAlphabet {
   import Alphabet._
   implicit object showA extends Func[A, String] { val f = (a: A) => "A" }
   implicit object showB extends Func[B, String] { val f = (b: B) => "B" }
@@ -42,4 +42,12 @@ object Showable {
   implicit object showY extends Func[Y, String] { val f = (y: Y) => "Y" }
   implicit object showZ extends Func[Z, String] { val f = (z: Z) => "Z" }
   implicit object show__ extends Func[__, String] { val f = (space: __) => " " }
+}
+
+object ShowablePlayers {
+  import Players._
+  implicit object showKing extends Func[King, String] { val f = (k: King) => "Almighty King" }
+  implicit object showQueen extends Func[Queen, String] { val f = (q: Queen) => s"Beautiful Queen ${q.name}" }
+  implicit object showPawn extends Func[Pawn, String] { val f = (p: Pawn) => s"Strong Pawn ${p.name}" }
+  implicit object showTower extends Func[Tower, String] { val f = (t: Tower) => s"Monstrous Tower ${t.name}" }
 }
