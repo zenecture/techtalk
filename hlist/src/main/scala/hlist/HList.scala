@@ -23,6 +23,9 @@ trait Lift[F[_]] {
 
   implicit def r[A]: A => F[A]
 
+  /**
+    * Lifts all items of given [[HList]] `l` into `F`.
+    */
   def lift[L <: HList](l: L)(implicit f: HFunctor1[L, F]): f.Res = {
     def trav(l: HList): HList = l match {
       case head :: tail => hlist.::(r(head), trav(tail))
@@ -41,12 +44,16 @@ trait Lift[F[_]] {
     }
 }
 
+
 trait Trans[F[_], G[_]] {
   import HList._
   import HFunctor._
 
   implicit def r[A]: F[A] => G[A]
 
+  /**
+    * Applies the Natural Transformation F ~> G for all items of given [[HList]] `l`.
+    */
   def trans[L <: HList](l: L)(implicit f: HFunctor2[L, F, G]): f.Res = {
     def trav(l: HList): HList = l match {
       case head :: tail => hlist.::(r(head.asInstanceOf[F[Any]]), trav(tail))
@@ -69,6 +76,9 @@ object Map {
   import HList._
   import HMapper._
 
+  /**
+    * Applies [[Func]] instances in scope for respective items of given [[HList]] `l`.
+    */
   def map[L <: HList](l: L)(implicit f: HMapper0[L]): f.Res = {
     def bitrav(l: HList, r: HList): HList = l match {
       case hd0 :: tl0 => r match {
