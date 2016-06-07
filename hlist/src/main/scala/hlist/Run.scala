@@ -11,6 +11,7 @@ object Run extends App {
   LiftTrans.apply
   Mapping.apply
   WithTuple.apply
+  LiftAlternative.apply
 
 }
 
@@ -43,10 +44,11 @@ object LiftTrans {
 
 object Mapping {
 
-  def apply = {
+  import Map._
+  import Alphabet._
+  import Showable._
 
-    import Map._
-    import Alphabet._
+  def apply = {
 
     case class King(name: String)
     case class Queen(name: String)
@@ -71,6 +73,24 @@ object Mapping {
 
   }
 
+}
+
+object LiftAlternative {
+
+  import Map._
+  import Alphabet._
+
+  def apply = {
+    implicit def lift[A]: Func[A, Σ[A]] = new Func[A, Σ[A]] { val f: A => Σ[A] = a => Σ(a) }
+
+    val abc = A :: B :: C :: HNil
+    val lifted = map(abc)
+
+    val assert: Σ[A] :: Σ[B] :: Σ[C] :: HNil = lifted
+
+    println(lifted)
+
+  }
 }
 
 object WithTuple {
