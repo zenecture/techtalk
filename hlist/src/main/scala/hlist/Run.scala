@@ -12,7 +12,7 @@ object Run extends App {
 
   val a = A :: 1 :: "2" :: 3.0 :: HNil
   val b = lift(a)
-  val c: Σ[A] :: Σ[Int] :: Σ[String] :: Σ[Double] :: HNil  = b
+  val c: Σ[A] :: Σ[Int] :: Σ[String] :: Σ[Double] :: HNil = b
   val d = { import Transformable._ ; trans(b) }
   val e: Option[A] :: Option[Int] :: Option[String] :: Option[Double] :: HNil = d
 
