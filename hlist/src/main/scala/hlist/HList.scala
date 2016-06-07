@@ -47,7 +47,7 @@ trait Trans[F[_], G[_]] {
 
   implicit def r[A]: F[A] => G[A]
 
-  def trans[L <: HList, R <: HList](l: L)(implicit f: HFunctor2[L, F, G]): f.Res = {
+  def trans[L <: HList](l: L)(implicit f: HFunctor2[L, F, G]): f.Res = {
     def trav(l: HList): HList = l match {
       case head :: tail => hlist.::(r(head.asInstanceOf[F[Any]]), trav(tail))
       case HNil => HNil
