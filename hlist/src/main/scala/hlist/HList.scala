@@ -60,7 +60,7 @@ trait Trans[F[_], G[_]] {
   }
 
   implicit def transHList[H, L <: HList, R <: HList]
-    (implicit e: Aux2[L, R, F, G], f: F[H] => G[H]): Aux2[F[H] :: L, G[H] :: R, F, G] = new HFunctor2[F[H] :: L, F, G] {
+    (implicit f: Aux2[L, R, F, G], g: F[H] => G[H]): Aux2[F[H] :: L, G[H] :: R, F, G] = new HFunctor2[F[H] :: L, F, G] {
       type Res = G[H] :: R
     }
 }
