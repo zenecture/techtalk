@@ -58,7 +58,7 @@ object Mapping {
     implicit object showPawn extends Func[Pawn, String] { val f = (p: Pawn) => s"Strong Pawn ${p.name}" }
     implicit object showTower extends Func[Tower, String] { val f = (t: Tower) => s"Monstrous Tower ${t.name}" }
 
-    val players = King("Karl") :: Queen("Quintessa") :: Tower("Theodore") :: Pawn("Biceps Benjamin")  :: HNil
+    val players = King("Karl") :: Queen("Quintessa") :: Tower("Theodore") :: Pawn("Power Paul")  :: HNil
     val explicit = map(players)
     val prettyPlayers: String :: String :: String :: String :: HNil = explicit
 
