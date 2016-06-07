@@ -29,7 +29,7 @@ trait Lift[F[_]] {
     */
   def lift[L <: HList](l: L)(implicit f: HFunctor1[L, F]): f.Res = {
     def trav(l: HList): HList = l match {
-      case head :: tail => hlist.::(r(head), trav(tail))
+      case head :: tail => :: (r(head), trav(tail))
       case HNil => HNil
     }
     trav(l).asInstanceOf[f.Res]
@@ -59,7 +59,7 @@ trait Trans[F[_], G[_]] {
     */
   def trans[L <: HList](l: L)(implicit f: HFunctor2[L, F, G]): f.Res = {
     def trav(l: HList): HList = l match {
-      case head :: tail => hlist.::(r(head.asInstanceOf[F[Any]]), trav(tail))
+      case head :: tail => :: (r(head.asInstanceOf[F[Any]]), trav(tail))
       case HNil => HNil
     }
     trav(l).asInstanceOf[f.Res]
@@ -87,7 +87,7 @@ object Map {
   def map[L <: HList](l: L)(implicit f: HMapper0[L]): f.Res = {
     def bitrav(l: HList, r: HList): HList = l match {
       case hd0 :: tl0 => r match {
-        case (hd1: Func[Any, Any]) :: tl1 => ::(hd1.f(hd0), bitrav(tl0, tl1))
+        case (hd1: Func[Any, Any]) :: tl1 => :: (hd1.f(hd0), bitrav(tl0, tl1))
       }
       case HNil => HNil
     }
