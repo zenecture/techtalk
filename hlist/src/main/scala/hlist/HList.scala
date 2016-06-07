@@ -64,3 +64,31 @@ trait Trans[F[_], G[_]] {
       type Res = G[H] :: R
     }
 }
+
+object Map {
+  import HList._
+  import HMapper._
+
+  def map[L <: HList](l: L)(implicit f: HMapper0[L]): f.Res = {
+    def bitrav(l: HList, r: HList): HList = l match {
+      case hd0 :: tl0 => r match {
+        case (hd1: Func[Any, Any]) :: tl1 => ::(hd1.f(hd0), bitrav(tl0, tl1))
+      }
+      case HNil => HNil
+    }
+    bitrav(l, f.fs).asInstanceOf[f.Res]
+  }
+
+  implicit def mapHNil[A, B]
+    (implicit g: Func[A, B]): Aux0[A :: HNil, B :: HNil] = new HMapper0[A :: HNil] {
+      type Res = B :: HNil
+      def fs = g :: HNil
+  }
+
+  implicit def mapHList[A, B, L <: HList, R <: HList]
+    (implicit f: Aux0[L, R], g: Func[A, B]): Aux0[A :: L, B :: R] = new HMapper0[A :: L] {
+      type Res = B :: R
+      def fs = g :: f.fs
+  }
+
+}
