@@ -46,8 +46,8 @@ object ShowableAlphabet {
 
 object ShowablePlayers {
   import Players._
-  implicit object showKing extends Func[King, String] { val f = (k: King) => "Almighty King" }
-  implicit object showQueen extends Func[Queen, String] { val f = (q: Queen) => s"Beautiful Queen ${q.name}" }
-  implicit object showPawn extends Func[Pawn, String] { val f = (p: Pawn) => s"Strong Pawn ${p.name}" }
-  implicit object showTower extends Func[Tower, String] { val f = (t: Tower) => s"Monstrous Tower ${t.name}" }
+  implicit object showKing extends Func[King, String] { val f = (k: King) => "Almighty King " + k.name }
+  implicit object showQueen extends Func[Queen, String] { val f = (q: Queen) => "Beautiful Queen " + q.name }
+  implicit object showPawn extends Func[Pawn, String] { val f = (p: Pawn) => "Strong Pawn " + p.name }
+  implicit object showTower extends Func[Tower, String] { val f = (t: Tower) => "Monstrous Tower " + t.name }
 }
