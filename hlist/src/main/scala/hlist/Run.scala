@@ -87,7 +87,7 @@ object TransAlternative {
   import Map._
 
   def apply = {
-    implicit def lift[T]: Func[Σ[T], Option[T]] = new Func[Σ[T], Option[T]] { val f: Σ[T] => Option[T] = a => a.send }
+    implicit def trans[T]: Func[Σ[T], Option[T]] = new Func[Σ[T], Option[T]] { val f: Σ[T] => Option[T] = a => a.send }
 
     val abc = Σ(1) :: Σ("2") :: Σ(3.0) :: HNil
     val sent = map(abc)
