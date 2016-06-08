@@ -13,7 +13,9 @@ trait HList {
   def ::[H](head: H): H :: this.type = hlist.::(head, tail = this)
 }
 
-case class ::[H, +T <: HList](head: H, tail: T) extends HList
+case class ::[H, +T <: HList](head: H, tail: T) extends HList {
+  override def toString = s"$head :: ${tail.toString}"
+}
 
 case object HNil extends HList
 
