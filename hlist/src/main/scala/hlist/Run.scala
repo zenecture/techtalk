@@ -12,6 +12,7 @@ object Run extends App {
   Mapping.apply
   WithTuple.apply
   LiftAlternative.apply
+  TransAlternative.apply
 
 }
 
@@ -77,6 +78,21 @@ object LiftAlternative {
     val lifted = map(abc)
     val assert: Σ[A] :: Σ[B] :: Σ[C] :: HNil = lifted
     println(lifted)
+  }
+
+}
+
+object TransAlternative {
+
+  import Map._
+
+  def apply = {
+    implicit def lift[T]: Func[Σ[T], Option[T]] = new Func[Σ[T], Option[T]] { val f: Σ[T] => Option[T] = a => a.send }
+
+    val abc = Σ(1) :: Σ("2") :: Σ(3.0) :: HNil
+    val sent = map(abc)
+    val assert: Option[Int] :: Option[String] :: Option[Double] :: HNil = sent
+    println(sent)
   }
 
 }
