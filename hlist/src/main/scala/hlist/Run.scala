@@ -72,7 +72,7 @@ object LiftAlternative {
   import Alphabet._
 
   def apply = {
-    implicit def lift[A]: Func[A, Σ[A]] = new Func[A, Σ[A]] { val f: A => Σ[A] = a => Σ(a) }
+    implicit def lift[T]: Func[T, Σ[T]] = new Func[T, Σ[T]] { val f: T => Σ[T] = a => Σ(a) }
 
     val abc = A :: B :: C :: HNil
     val lifted = map(abc)
