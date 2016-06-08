@@ -89,8 +89,8 @@ object TransAlternative {
   def apply = {
     implicit def trans[T]: Func[Σ[T], Option[T]] = new Func[Σ[T], Option[T]] { val f: Σ[T] => Option[T] = a => a.send }
 
-    val abc = Σ(1) :: Σ("2") :: Σ(3.0) :: HNil
-    val sent = map(abc)
+    val nums = Σ(1) :: Σ("2") :: Σ(3.0) :: HNil
+    val sent = map(nums)
     val assert: Option[Int] :: Option[String] :: Option[Double] :: HNil = sent
     println(sent)
   }
