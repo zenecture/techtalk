@@ -60,8 +60,6 @@ object FactorialFunc {
 }
 
 object NonRecursiveYCombinator {
-
   case class F[A, B](l: F[A, B] => A => B) { def apply(r: F[A, B]) = l(r) }
   def apply[A, B] = (f: (A => B) => A => B) => F[A, B](x => f(x(x)(_)))(F(x => f(x(x)(_))))
-
 }
