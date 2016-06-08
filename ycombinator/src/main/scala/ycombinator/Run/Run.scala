@@ -15,8 +15,9 @@ object Run extends App {
   val c = FactorialIter(5)
   val d = YCombinator[Int, Int](a => b => if (b > 1) b * a(b - 1) else 1)(5)
   val e = FactorialFunc.apply(5)
+  val f = NonRecursiveYCombinator[Int, Int](a => b => if (b > 1) b * a(b - 1) else 1)(5)
 
-  Assert(a :: b :: c :: d :: e :: HNil)
+  Assert(a :: b :: c :: d :: e :: f :: HNil)
 }
 
 object Factorial {
@@ -56,4 +57,11 @@ object ExplicitYCombinator {
 
 object FactorialFunc {
   val apply: Int => Int = n => if (n > 1) n * apply(n - 1) else 1
+}
+
+object NonRecursiveYCombinator {
+
+  case class F[A, B](l: F[A, B] => A => B) { def apply(r: F[A, B]) = l(r) }
+  def apply[A, B] = (f: (A => B) => A => B) => F[A, B](x => f(x(x)(_)))(F(x => f(x(x)(_))))
+
 }
