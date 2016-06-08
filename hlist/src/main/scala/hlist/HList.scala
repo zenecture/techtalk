@@ -22,7 +22,7 @@ trait Lift[F[_]] {
   import HList._
   import HFunctor._
 
-  implicit def r[A]: A => F[A]
+  implicit def r[T]: T => F[T]
 
   /**
     * Lifts all items of given [[HList]] `l` into `F`.
@@ -52,7 +52,7 @@ trait Trans[F[_], G[_]] {
   import HList._
   import HFunctor._
 
-  implicit def r[A]: F[A] => G[A]
+  implicit def r[T]: F[T] => G[T]
 
   /**
     * Applies the Natural Transformation F ~> G for all items of given [[HList]] `l`.
