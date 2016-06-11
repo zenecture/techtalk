@@ -13,5 +13,6 @@ object TechTalk extends Build {
 
   lazy val hlist = Project(id = "hlist", base = file("hlist"), settings = sets)
   lazy val ycombinator = Project(id = "ycombinator", base = file("ycombinator"), settings = sets) dependsOn hlist
+  lazy val playground = Project(id = "playground", base = file("playground"), settings = sets) dependsOn hlist
 
 }
