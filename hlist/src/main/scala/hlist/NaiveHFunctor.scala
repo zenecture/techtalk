@@ -7,8 +7,8 @@ import Alphabet._
   * @author bogdanski
   * @since 01.06.16
   */
-trait NaiveHFunctor[A <: HList] {
-  def map[B <: HList](fa: A)(f: A => B): B = f(fa)
+trait NaiveHFunctor[L <: HList] {
+  def map[R <: HList](fa: L)(f: L => R): R = f(fa)
 }
 
 object NaiveHFunctor extends NaiveHFunctor[A :: B :: HNil]
